@@ -28,12 +28,7 @@ struct MissionView: View {
                     
                     VStack(alignment: .leading) {
                         
-                        Rectangle()
-                            .foregroundColor(.white.opacity(0.5))
-                            .frame( height: 1)
-                            .cornerRadius(10)
-
-                        
+                        CustomDivider()
                         
                         Text("Mission Heiglihts")
                             .font(.title.bold())
@@ -42,10 +37,7 @@ struct MissionView: View {
                         Text(mission.description)
                             .padding(.vertical)
                         
-                        Rectangle()
-                            .foregroundColor(.white.opacity(0.5))
-                            .frame( height: 1)
-                            .cornerRadius(10)
+                        CustomDivider()
                         
                         Text("Crew members")
                             .font(.title.bold())
@@ -53,44 +45,14 @@ struct MissionView: View {
                     }
                     .padding(.horizontal)
                     
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(crew, id: \.role) { member in
-                                NavigationLink {
-                                    
-                                    AstronautView(astronaut: member.austronout)
-                                
-                                } label: {
-                                Image(member.austronout.id)
-                                    .resizable()
-                                    .frame(width: 104, height: 72)
-                                    .clipShape(Capsule())
-                                    .overlay(
-                                        Capsule()
-                                            .strokeBorder(.white, lineWidth: 1 )
-                                    )
-
-                                    VStack (alignment: .leading) {
-                                        Text(member.austronout.name)
-                                            .font(.headline)
-                                            .foregroundColor(.white)
-                                        
-                                        Text(member.role)
-                                            .font(.callout)
-                                            .foregroundColor(.secondary)
-                                    }
-                                }
-                                .padding([.horizontal, .vertical])
-                                
-                            }
-
-                        }
-                    }
+                    // Crew memberView
+                    CrewMemberView(crewMembers: self.crew)
+                    
                 } // end vstack
             }
             .navigationTitle(mission.displayName)
             .navigationBarTitleDisplayMode(.inline)
-            .background(.lightBackground)
+            .background(.darkBackground)
             // end scrolview
 
         } // geometry reader
@@ -102,7 +64,7 @@ struct MissionView: View {
             if let astronaut = astronaut[member.name] {
                 return CrewMember(role: member.role, austronout: astronaut)
             } else {
-                fatalError("Could not found astronaut with name \(member.name)")
+                fatalError("Could not find astronaut with name \(member.name)")
             }
         })
         
