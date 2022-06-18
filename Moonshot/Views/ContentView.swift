@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var showGridLayout = true
+    @AppStorage("showGridLayout") private var showGridLayout = true
     
     let astronauts: [String: Astronaut] = Bundle.main.decode(fileName: "astronauts.json")
     let missions: [Mission] = Bundle.main.decode(fileName: "missions.json")
