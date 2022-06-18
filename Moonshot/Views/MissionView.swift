@@ -24,7 +24,12 @@ struct MissionView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: geo.size.width * 0.6)
-                        .padding(.top)
+                        .padding(.vertical)
+                    
+                    if  let date = mission.launchDate {
+                        Label(date.formatted(date: .abbreviated, time: .omitted), systemImage: "calendar")
+                            .font(.title2)
+                    }
                     
                     VStack(alignment: .leading) {
                         
@@ -76,7 +81,7 @@ struct MissionView_Previews: PreviewProvider {
     static var missions: [Mission] = Bundle.main.decode(fileName: "missions.json")
     static var astronaut: [String: Astronaut] = Bundle.main.decode(fileName: "astronauts.json")
     static var previews: some View {
-        MissionView(mission: missions[0], astronaut: astronaut)
+        MissionView(mission: missions[1], astronaut: astronaut)
             .preferredColorScheme(.dark)
     }
 }
